@@ -1,6 +1,4 @@
         
-        // javascript basics, variables, loops, conditionals, functions , operators,DOM Manipulation
-
         let a = 10;
         let b = 5;
         console.log(a+b)
@@ -148,7 +146,7 @@
     //     console.log(fruits[i])
     // }
 
-    for(let f of fruits){ // for every value inside fruits, put that value into the variable f
+    for(let f of fruits){ 
         console.log(f)
     }
 
@@ -162,7 +160,7 @@
     }
 
     const g2 = () => {
-        console.log("Hello") //arrow function
+        console.log("Hello") 
     }
 
 
