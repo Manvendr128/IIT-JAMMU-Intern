@@ -27,7 +27,7 @@ const getproducts = async(req,res,next) =>{
     })
 
   }
-  catch{
+  catch(error){
     next(error)
   }
 }
@@ -49,7 +49,7 @@ const getprouctbyid = async(req,res,next)=>{
 
 
   }
-  catch{
+  catch(error){
     next(error)
   }
 }
@@ -85,7 +85,7 @@ const updateproduct = async(req,res,next)=>{
 
 const deleteproduct = async(req,res,next)=>{
   try{
-    const product = await Product.finyByIdAndDelete(req.params.id);
+    const product = await Product.findByIdAndDelete(req.params.id);
     if(!product){
       return res.status(404).json({
         success:false,
