@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const productroutes = require("./routes/product.routes")
+
+const authRoutes = require("./routes/auth.route")
 const {notfound,errorhandler} = require("./middlewares/error.middleware")
 
 const app = express();
@@ -17,6 +19,8 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/api/products",productroutes);
+
+app.use("/api/auth",authRoutes);
 
 app.use(notfound);
 app.use(errorhandler);
