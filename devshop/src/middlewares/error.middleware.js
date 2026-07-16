@@ -26,6 +26,12 @@ if(err.name==="ValidationError"){
     message:mesaages.join(",")
   })
 }
+if(err.name==="MulterError"){
+  return res.status(400).json({
+    success:false,
+    message:`upload error ${err.message}`
+  })
+}
 
 }
 

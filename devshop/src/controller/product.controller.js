@@ -106,7 +106,7 @@ const deleteproduct = async(req,res,next)=>{
 const uploadProductImage = async(req,res,next)=>{
   try{
     if(!req.file){
-      return res.status(400).jspn({
+      return res.status(400).json({
         success:false,
         message:"please upload image"
       })

@@ -22,6 +22,14 @@ const userschema = new mongoose.Schema(
       type:String,
       enum:["user","admin"], // enum menas check only these two are allow not student defined
       default : "user"
+    },
+
+    otp:{
+      type:String,
+      default : ""
+    },
+    otpExpiry : {
+      type:Date
     }
   },
   {timestamps : true}
@@ -30,7 +38,7 @@ const userschema = new mongoose.Schema(
 // first check then into hashing
 
 userschema.pre("save",async function(next){
-  if(!this.isModified("password")) return next(); 
+  if(!this.isModified("password")); 
   // ye check kr rha hai ki update kiya yaa modified kiya password me agr nhi too aage bdh rha hai
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password,salt) 

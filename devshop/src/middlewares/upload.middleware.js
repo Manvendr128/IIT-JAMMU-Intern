@@ -3,7 +3,7 @@ const path = require("path");
 
 //where and how to store files on disk
 
-const storage = multer.diskStrorage({
+const storage = multer.diskStorage({
   // callback function=cb
   destination:(req,file,cb)=>{
     cb(null,"public/uploads") // folder to save into
@@ -34,7 +34,7 @@ const filefilter = (req,file,cb)=>{
 const upload = multer({
   storage,
   filefilter,
-  limits:{fileSize : 2*1024*1024}
+  limits:{fileSize : 8*1024*1024}
 })
 
 module.exports = upload;
