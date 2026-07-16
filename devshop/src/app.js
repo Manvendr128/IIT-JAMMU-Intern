@@ -4,8 +4,11 @@ const productroutes = require("./routes/product.routes")
 
 const authRoutes = require("./routes/auth.route")
 const {notfound,errorhandler} = require("./middlewares/error.middleware")
+const path = require("path");
 
 const app = express();
+
+app.use(express.static(path.join(__dirname,"..","public")));
 
 app.use(morgan("dev"));
 app.use(express.json()); // for api

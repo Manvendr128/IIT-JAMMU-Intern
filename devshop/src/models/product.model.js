@@ -19,6 +19,10 @@ const prodcutschema = new mongoose.Schema(
     type:Boolean,
     default : true
    },
+   image:{
+    type:String, //URL/path uploads/picture.png
+    default:"",
+   },
 
   },
   {timestamps : true}

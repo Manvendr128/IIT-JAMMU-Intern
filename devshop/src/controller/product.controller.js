@@ -102,5 +102,36 @@ const deleteproduct = async(req,res,next)=>{
   }
 }
 
+// upload image
+const uploadProductImage = async(req,res,next)=>{
+  try{
+    if(!req.file){
+      return res.status(400).jspn({
+        success:false,
+        message:"please upload image"
+      })
+    }
 
-module.exports = {createproduct,getproducts,getprouctbyid,updateproduct,deleteproduct};
+    const imageUrl = `/uploads/${req.file.filename}` // public  url path
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      {image:imageUrl},
+      {new:true}
+    )
+    if(!product){
+      return res.status(400).jspn({
+        success:false,
+        message:"product not fine"
+      })
+    }
+    res.json({
+      success: true,
+      data:product,imageUrl
+    })
+  }
+  catch(error){
+    next(error)
+  }
+}
+
+module.exports = {createproduct,getproducts,getprouctbyid,updateproduct,deleteproduct,uploadProductImage};

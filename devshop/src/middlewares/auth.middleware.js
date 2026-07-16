@@ -13,11 +13,11 @@ const protect = async(req,res,next)=>{
     if(!token){
       return res.status(401).json({
         success:false,
-        message:"not authorized"
+        message:"not authorized get out"
       })
     }
 
-    const decoded = jwt.verify(token,process.env.JWT_SECRET)
+    const decoded = jwt.verify(token,process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
 
@@ -37,6 +37,8 @@ const protect = async(req,res,next)=>{
   }
 }
 
+//RBAC:only allow speccific roles
+
 const authorize = (...roles) =>{
   return (req,res,next)=>{
     if(!roles.includes(req.user.role)){
@@ -48,5 +50,7 @@ const authorize = (...roles) =>{
     next();
   }
 }
+
+
 
 module.exports = {protect,authorize};
