@@ -32,27 +32,29 @@ app.use(notfound);
 app.use(errorhandler);
 
 
+
+
+
+// const{order,keyId} = await Axis3DIcon("/api/payments/order",{
+//   amount:100
+// });
+
+// const rzp = new window.Razorpay({
+//   key:keyId,
+//   order_id,
+//   amount,
+//   handler:async(response) =>{
+//     await axios.post("/api/payment/verify",{
+//       razorporder,
+//       paymentId,
+//       signature
+//     })
+
+//   }
+// })
+
+// rzp.open();
+
 // for multiple function we use {} like {app,monu..etc}
 module.exports = app;
-
-
-const{order,keyId} = await Axis3DIcon("/api/payments/order",{
-  amount:100
-});
-
-const rzp = new window.Razorpay({
-  key:keyId,
-  order_id,
-  amount,
-  handler:async(response) =>{
-    await axios.post("/api/payment/verify",{
-      razorporder,
-      paymentId,
-      signature
-    })
-
-  }
-})
-
-rzp.open();
 
