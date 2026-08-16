@@ -88,6 +88,63 @@ const getbookbyid = async(req,res,next)=>{
   }
 }
 
+const deletebook = async(req,res,next)=>{
+  const {id} = req.params;
+
+  console.log("ID:", id);
+
+  const deleteb = await Book.findByIdAndDelete(id)
+  if(!deleteb){
+    return res.status(404).json({
+      success:false,
+      message:"Book is not found"
+    })
+  }
+  return res.status(202).json({
+    success : true,
+    message:"Book has been delted",
+    data : deleteb
+  });
+}
+
+const searchbook = async(req,res,next)=>{
+  try{
+    const {title} = req.query;
+
+    // console.log(req.query);
+    // console.log(title);
+
+
+if (!title) {
+  return res.status(400).json({
+    success: false,
+    message: "Please provide book title"
+  });
+}
+    const search = await Book.find({
+      title:{
+        $regex : title,
+        $options : "i" // case insensitive ke liye use
+      }
+    })
+    if(search.length===0){
+      return res.status(404).json({
+        success : false,
+        message : "This Book is not found"
+      })
+    }
+
+      return res.status(200).json({
+        success : true,
+        data : search
+      })
+    
+  }
+  catch(error){
+    next(error);
+  }
+}
+
 const getallbook = async(req,res,next)=>{
   try{
     const books = await Book.find().select("-isbn");
@@ -103,4 +160,4 @@ const getallbook = async(req,res,next)=>{
   }
 }
 
-module.exports = {addbook,getallbook,getbookbyid,updatebook};
+module.exports = {addbook,getallbook,getbookbyid,updatebook,searchbook,deletebook};
