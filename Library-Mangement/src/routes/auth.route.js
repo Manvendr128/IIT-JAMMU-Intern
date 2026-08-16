@@ -10,5 +10,7 @@ router.get("/me",getMe);
 router.put("/:id",update);
 router.get("/all",getAllUsers);
 
+
+
 module.exports = router;
 

@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const routes = require("./routes/auth.route");
-
+const authroutes = require("./routes/auth.route");
+const bookroutes = require("./routes/book.route");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -16,6 +16,7 @@ app.put("/test", (req, res) => {
 });
 
 
-app.use("/api/user",routes);
+app.use("/api/user",authroutes);
+app.use("/api/book",bookroutes);
 
 module.exports = app;

@@ -37,7 +37,7 @@ const login = async(req,res,next)=>{
     if(!email){
       return res.status(400).json({
         success:false,
-        message:"Email or Password are required"
+        message:"Email are required"
       })
     }
 
