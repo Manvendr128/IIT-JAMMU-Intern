@@ -2,7 +2,7 @@ const Book = require("../model/book.model");
 const Borrow = require("../model/borrow.model");
 
 
-const borrowBook = async(req,res)=>{
+const borrowBook = async(req,res,next)=>{
   try{
     const {userId,bookId} = req.body;
     const book = await Book.findById(bookId);
@@ -38,10 +38,51 @@ const borrowBook = async(req,res)=>{
     })
   }
   catch(error){
-    res.status(500).json({
-      message : error.message,
-    })
+    next(error);
   }
 }
 
-module.exports = {borrowBook};
+const returnbook = async(req,res,next)=>{
+  try{
+    const{userId,bookId} = req.body;
+    const book = await Book.findById(bookId);
+
+    if(!book){
+      return res.status(400).json({
+        message:"This Book is not Borrowed"
+      })
+    };
+
+  
+    const returnb = await Borrow.findOne({
+      user : userId,
+      book : bookId,
+      returnDate : null,
+      // returnDate : new Date(),
+      // returnDate,
+    })
+
+    if(!returnb){
+      return res.status(400).json({
+        message : "This Book is not borrowed by this user",
+      });
+    }
+
+    returnb.returnDate = new Date();
+    await returnb.save();
+
+    book.availablecopies +=1;
+    await book.save();
+
+    return res.json(201).json({
+      message : "book has been return successfully",
+      returnb,
+    })
+
+  }
+  catch(error){
+    next(error);
+  }
+}
+
+module.exports = {borrowBook,returnbook};
